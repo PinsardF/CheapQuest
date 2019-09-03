@@ -8,7 +8,7 @@
     tools:context=".Combat">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/hero_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/colorAccent"
@@ -19,8 +19,9 @@
         android:id="@+id/button_attack"
         android:layout_width="140dp"
         android:layout_height="80dp"
-        android:text="Attaquer"
+        android:layout_marginBottom="65dp"
         android:onClick="attack"
+        android:text="Attaquer"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -28,21 +29,23 @@
         android:id="@+id/button_magie"
         android:layout_width="140dp"
         android:layout_height="80dp"
+        android:layout_marginBottom="65dp"
         android:text="Magie"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button_fuir"
         app:layout_constraintStart_toEndOf="@+id/button_attack" />
 
     <Button
         android:id="@+id/button_fuir"
         android:layout_width="140dp"
         android:layout_height="80dp"
+        android:layout_marginBottom="65dp"
         android:text="Fuir"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button_magie" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/ennemy_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/colorAccent"
@@ -95,5 +98,17 @@
         android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textbox"
+        android:layout_width="393dp"
+        android:layout_height="55dp"
+        android:background="#03CCB9"
+        android:text="Vous attaquez le monstre.\n Il perd 3 points de vie."
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_magie" />
 
 </android.support.constraint.ConstraintLayout>

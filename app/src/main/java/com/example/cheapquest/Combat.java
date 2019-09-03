@@ -35,9 +35,9 @@ public class Combat extends AppCompatActivity {
         hero_name.setText(hero.getName());
         String hero_h = Integer.toString(hero.getHealth());
         hero_health.setText(hero_h+"/"+hero_h+" PV");
-        ImageView hero_image = findViewById(R.id.imageView);
+        ImageView hero_image = findViewById(R.id.hero_image);
         hero_image.setImageDrawable(hero.getImage());
-        ImageView ennemy_image = findViewById(R.id.imageView2);
+        ImageView ennemy_image = findViewById(R.id.ennemy_image);
         ennemy_image.setImageDrawable(ennemy.getImage());
         testanim = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.slice);
         ennemy_image.startAnimation(testanim);
