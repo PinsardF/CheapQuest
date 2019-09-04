@@ -8,9 +8,9 @@ public class Character {
     int attack;
     int health;
     int max_health;
-    Drawable image;
+    int image;
 
-    public Character(String name, int attack, int health, Drawable image){
+    public Character(String name, int attack, int health, int image){
         this.name = name;
         this.attack = attack;
         this.health = health;
@@ -33,7 +33,7 @@ public class Character {
         return max_health;
     }
 
-    public Drawable getImage(){
+    public int getImage(){
         return image;
     }
 

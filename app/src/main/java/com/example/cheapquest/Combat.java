@@ -41,17 +41,26 @@ public class Combat extends AppCompatActivity {
         String hero_h = Integer.toString(hero.getHealth());
         hero_health.setText(hero_h+"/"+hero_h+" PV");
         ImageView hero_image = findViewById(R.id.hero_image);
-        hero_image.setImageDrawable(hero.getImage());
+        hero_image.setImageDrawable(getDrawable(hero.getImage()));
         ImageView ennemy_image = findViewById(R.id.ennemy_image);
-        ennemy_image.setImageDrawable(ennemy.getImage());
+        ennemy_image.setImageDrawable(getDrawable(ennemy.getImage()));
         testanim = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.slice);
         ennemy_image.startAnimation(testanim);
     }
 
     private void load_characters() {
         String nom_zone = getIntent().getStringExtra("zone");
-        ennemy = new Character("Monstre "+nom_zone, 3, 10,getDrawable(R.drawable.tiny_hero));
-        hero = new Character("Vous",5,50,getDrawable(R.drawable.tiny_monster));
+        System.out.println(nom_zone);
+        Zones_enum[] values = Zones_enum.values();
+        Zones_enum zone = Zones_enum.chemin;
+        for (Zones_enum value : values){
+            if(value.nom == nom_zone){
+                zone = value;
+            }
+        }
+        String ennemy_name = zone.monsters.get(0);
+        ennemy = new Character(ennemy_name, 3, 10,R.drawable.tiny_hero);
+        hero = new Character("Vous",5,1000,R.drawable.tiny_monster);
     }
 
     public void attack(View view) {
