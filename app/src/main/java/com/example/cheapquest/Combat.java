@@ -1,6 +1,8 @@
 package com.example.cheapquest;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -18,9 +20,13 @@ public class Combat extends AppCompatActivity {
     Ennemy ennemy;
     Character hero;
     Animation testanim;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        sharedPreferences = getSharedPreferences("", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_combat);
         load_characters();
@@ -73,7 +79,11 @@ public class Combat extends AppCompatActivity {
         ennemy.setMax_health(monster.health);
         ennemy.setImage(monster.image);
         ennemy.setXp_value(monster.xp_value);
-        hero = new Character("Vous",5,1000,R.drawable.tiny_monster);
+
+        int hero_attack = sharedPreferences.getInt("hero_attack",0);
+        int hero_health = sharedPreferences.getInt("hero_health",0);
+        hero = new Character("Vous",hero_attack,hero_health,R.drawable.tiny_hero);
+        //attack : 5    health : 100
     }
 
     public void attack(View view) {
@@ -108,6 +118,13 @@ public class Combat extends AppCompatActivity {
         magik_button.setEnabled(false);
         Button run_button = findViewById(R.id.button_fuir);
         run_button.setEnabled(false);
+
+        /*int hero_health = sharedPreferences.getInt("hero_health",0);
+        editor.putInt("hero_health",hero_health+10);
+        editor.apply();*/
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {public void run() { finish(); }}, 1000);
     }
 
     private void ennemy_attack() {

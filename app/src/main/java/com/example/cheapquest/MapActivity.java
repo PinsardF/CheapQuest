@@ -20,4 +20,9 @@ public class MapActivity extends AppCompatActivity {
         combatIntent.putExtra("zone",zone);
         startActivity(combatIntent);
     }
+
+    public void go_to_village(){
+        finish();
+        System.exit(0);
+    }
 }
