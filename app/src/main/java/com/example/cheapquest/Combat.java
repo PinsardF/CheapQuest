@@ -3,11 +3,13 @@ package com.example.cheapquest;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -47,7 +49,8 @@ public class Combat extends AppCompatActivity {
     }
 
     private void load_characters() {
-        ennemy = new Character("Monstre", 3, 10,getDrawable(R.drawable.tiny_hero));
+        String nom_zone = getIntent().getStringExtra("zone");
+        ennemy = new Character("Monstre "+nom_zone, 3, 10,getDrawable(R.drawable.tiny_hero));
         hero = new Character("Vous",5,50,getDrawable(R.drawable.tiny_monster));
     }
 
@@ -64,18 +67,10 @@ public class Combat extends AppCompatActivity {
         if(ennemy.health > 0) {
             ennemy_health.setText(ennemy.getHealth() + "/" + ennemy.getMax_health() + " PV");
             Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                public void run() {
-                    ennemy_attack();
-                }
-            }, 1000);
+            handler.postDelayed(new Runnable() {public void run() { ennemy_attack(); }}, 1000);
         }else{
             Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                public void run() {
-                    ennemy_death();
-                }
-            }, 1000);
+            handler.postDelayed(new Runnable() {public void run() { ennemy_death(); }}, 1000);
         }
     }
 
@@ -85,6 +80,12 @@ public class Combat extends AppCompatActivity {
         TextView ennemy_health = findViewById(R.id.ennemy_health);
         ennemy_health.setText("Mort");
         textBox.setText("Vous avez vaincu le "+ennemy.getName()+" !");
+        Button atk_button = findViewById(R.id.button_attack);
+        atk_button.setEnabled(false);
+        Button magik_button = findViewById(R.id.button_magie);
+        magik_button.setEnabled(false);
+        Button run_button = findViewById(R.id.button_fuir);
+        run_button.setEnabled(false);
     }
 
     private void ennemy_attack() {

@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void demarrer(View view) {
-        Intent combatIntent = new Intent(this,Combat.class);
-        startActivity(combatIntent);
+        Intent mapIntent = new Intent(this,MapActivity.class);
+        startActivity(mapIntent);
     }
 }
