@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 public class Combat extends AppCompatActivity {
 
-    Character ennemy;
+    Ennemy ennemy;
     Character hero;
     Animation testanim;
 
@@ -26,7 +26,7 @@ public class Combat extends AppCompatActivity {
         load_characters();
         load_infos();
         TextView textBox = findViewById(R.id.textbox);
-        textBox.setText("Un "+ennemy.getName()+" apparaît !");
+        textBox.setText("\""+ennemy.getName()+"\" apparaît !");
     }
 
     private void load_infos() {
@@ -50,16 +50,29 @@ public class Combat extends AppCompatActivity {
 
     private void load_characters() {
         String nom_zone = getIntent().getStringExtra("zone");
-        System.out.println(nom_zone);
         Zones_enum[] values = Zones_enum.values();
         Zones_enum zone = Zones_enum.chemin;
         for (Zones_enum value : values){
-            if(value.nom == nom_zone){
+            if(value.nom.equals(nom_zone)){
                 zone = value;
             }
         }
         String ennemy_name = zone.monsters.get(0);
-        ennemy = new Character(ennemy_name, 3, 10,R.drawable.tiny_hero);
+
+        Monsters_enum[] values_monsters = Monsters_enum.values();
+        Monsters_enum monster = Monsters_enum.Bandit;
+        for(Monsters_enum value_monster : values_monsters){
+            if(value_monster.name.equals(ennemy_name)){
+                monster = value_monster;
+            }
+        }
+        ennemy = new Ennemy("Bandit",3,10,1,1,R.drawable.tiny_hero);
+        ennemy.setName(monster.name);
+        ennemy.setAttack(monster.attack);
+        ennemy.setHealth(monster.health);
+        ennemy.setMax_health(monster.health);
+        ennemy.setImage(monster.image);
+        ennemy.setXp_value(monster.xp_value);
         hero = new Character("Vous",5,1000,R.drawable.tiny_monster);
     }
 
@@ -71,10 +84,10 @@ public class Combat extends AppCompatActivity {
             new_ennemy_health = 0;
         }
         ennemy.setHealth(new_ennemy_health);
-        textBox.setText("Vous infligez "+hero.getAttack()+" dégats au "+ennemy.getName()+".");
+        textBox.setText("Vous infligez "+hero.getAttack()+" dégats à \""+ennemy.getName()+"\".");
         TextView ennemy_health = findViewById(R.id.ennemy_health);
         if(ennemy.health > 0) {
-            ennemy_health.setText(ennemy.getHealth() + "/" + ennemy.getMax_health() + " PV");
+            ennemy_health.setText(ennemy.getHealth() + "/" + ennemy.max_health + " PV");
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {public void run() { ennemy_attack(); }}, 1000);
         }else{
@@ -88,7 +101,7 @@ public class Combat extends AppCompatActivity {
 
         TextView ennemy_health = findViewById(R.id.ennemy_health);
         ennemy_health.setText("Mort");
-        textBox.setText("Vous avez vaincu le "+ennemy.getName()+" !");
+        textBox.setText("Vous avez vaincu \""+ennemy.getName()+"\" !");
         Button atk_button = findViewById(R.id.button_attack);
         atk_button.setEnabled(false);
         Button magik_button = findViewById(R.id.button_magie);
@@ -100,10 +113,10 @@ public class Combat extends AppCompatActivity {
     private void ennemy_attack() {
         TextView textBox = findViewById(R.id.textbox);
 
-        int new_hero_health = hero.getHealth()-ennemy.getAttack();
+        int new_hero_health = hero.getHealth()-ennemy.attack;
         hero.setHealth(new_hero_health);
         TextView hero_health = findViewById(R.id.hero_health);
         hero_health.setText(hero.getHealth()+"/"+hero.getMax_health()+" PV");
-        textBox.setText("Le "+ennemy.getName()+" vous a infligé "+ennemy.getAttack()+" dégats.");
+        textBox.setText("\""+ennemy.getName()+"\" vous a infligé "+ennemy.attack+" dégats.");
     }
 }
