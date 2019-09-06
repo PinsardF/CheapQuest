@@ -8,19 +8,24 @@ public class Character {
     int attack;
     int health;
     int max_health;
+    int lvl;
+    int xp_gauge;
     int image;
 
-    public Character(String name, int attack, int health, int image){
+    public Character(String name, int attack, int health, int lvl, int xp_gauge, int image){
         this.name = name;
         this.attack = attack;
         this.health = health;
         this.max_health = health;
+        this.lvl = lvl;
+        this.xp_gauge = xp_gauge;
         this.image = image;
     }
 
     public String getName() {
         return name;
     }
+
     public int getAttack(){
         return attack;
     }

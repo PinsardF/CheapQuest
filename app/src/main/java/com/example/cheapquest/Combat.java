@@ -15,6 +15,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.logging.Level;
+
 public class Combat extends AppCompatActivity {
 
     Ennemy ennemy;
@@ -27,6 +29,8 @@ public class Combat extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         sharedPreferences = getSharedPreferences("", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
+        int lvl = sharedPreferences.getInt("hero_lvl",0);
+        int attack = sharedPreferences.getInt("hero_attack",0);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_combat);
         load_characters();
@@ -82,7 +86,9 @@ public class Combat extends AppCompatActivity {
 
         int hero_attack = sharedPreferences.getInt("hero_attack",0);
         int hero_health = sharedPreferences.getInt("hero_health",0);
-        hero = new Character("Vous",hero_attack,hero_health,R.drawable.tiny_hero);
+        int hero_lvl = sharedPreferences.getInt("hero_lvl",0);
+        int hero_xp = sharedPreferences.getInt("hero_xp",0);
+        hero = new Character("Vous",hero_attack,hero_health,hero_lvl,hero_xp,R.drawable.character);
         //attack : 5    health : 100
     }
 
@@ -119,11 +125,33 @@ public class Combat extends AppCompatActivity {
         Button run_button = findViewById(R.id.button_fuir);
         run_button.setEnabled(false);
 
-        /*int hero_health = sharedPreferences.getInt("hero_health",0);
-        editor.putInt("hero_health",hero_health+10);
-        editor.apply();*/
+        int hero_xp = sharedPreferences.getInt("hero_xp",0);
+        System.out.println(hero_xp);
+        final int hero_lvl = sharedPreferences.getInt("hero_lvl",0);
+        Level_enum[] values_lvl = Level_enum.values();
+        Level_enum lvl = Level_enum.Level1;
+        for (Level_enum value_lvl : values_lvl){
+            if(value_lvl.lvl == hero_lvl){
+                lvl = value_lvl;
+            }
+        }
+        hero_xp += ennemy.getXp_value();
+        if(hero_xp >= lvl.xp_needed){
+            hero_xp -= lvl.xp_needed;
+            editor.putInt("hero_lvl",hero_lvl+1);
+        }
+        editor.putInt("hero_xp",hero_xp);
+        //editor.putInt("hero_xp",14);
+        editor.apply();
 
         Handler handler = new Handler();
+        final int finalHero_xp = sharedPreferences.getInt("hero_xp",0);
+        final int finalHero_lvl = sharedPreferences.getInt("hero_lvl",0);
+        handler.postDelayed(new Runnable() {public void run() {
+            TextView textbox = findViewById(R.id.textbox);
+            textbox.setText("Lvl "+finalHero_lvl+", xp :"+ finalHero_xp);
+        }}, 1000);
+
         handler.postDelayed(new Runnable() {public void run() { finish(); }}, 1000);
     }
 

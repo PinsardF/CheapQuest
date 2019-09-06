@@ -20,9 +20,13 @@ public class MainActivity extends AppCompatActivity {
         if(hero_attack==0){
             editor.putInt("hero_health",100);
             editor.putInt("hero_attack",5);
+            editor.putInt("hero_lvl",1);
+            editor.putInt("hero_xp",0);
             editor.apply();
         }
-
+        /*editor.putInt("hero_lvl",1);
+        editor.putInt("hero_xp",0);
+        editor.apply();*/
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }

@@ -33,6 +33,10 @@ public class Ennemy {
         this.health = health;
     }
 
+    public int getXp_value(){
+        return this.xp_value;
+    }
+
     public void setName(String name){
         this.name = name;
     }
