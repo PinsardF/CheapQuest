@@ -21,9 +21,8 @@ public class MapActivity extends AppCompatActivity {
         startActivity(combatIntent);
     }
 
-    public void go_to_village(){
-        moveTaskToBack(true);
-        android.os.Process.killProcess(android.os.Process.myPid());
-        System.exit(1);
+    public void go_to_village(View view){
+        Intent villageIntent = new Intent(this,VillageActivity.class);
+        startActivity(villageIntent);
     }
 }

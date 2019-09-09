@@ -40,6 +40,7 @@
         android:layout_width="140dp"
         android:layout_height="80dp"
         android:layout_marginBottom="65dp"
+        android:onClick="fuir"
         android:text="Fuir"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

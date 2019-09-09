@@ -141,7 +141,6 @@ public class Combat extends AppCompatActivity {
             editor.putInt("hero_lvl",hero_lvl+1);
         }
         editor.putInt("hero_xp",hero_xp);
-        //editor.putInt("hero_xp",14);
         editor.apply();
 
         Handler handler = new Handler();
@@ -163,5 +162,12 @@ public class Combat extends AppCompatActivity {
         TextView hero_health = findViewById(R.id.hero_health);
         hero_health.setText(hero.getHealth()+"/"+hero.getMax_health()+" PV");
         textBox.setText("\""+ennemy.getName()+"\" vous a infligé "+ennemy.attack+" dégats.");
+    }
+
+    public void fuir(View view) {
+        TextView textbox = findViewById(R.id.textbox);
+        textbox.setText("Vous prenez la fuite.");
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {public void run() { finish(); }}, 1000);
     }
 }
