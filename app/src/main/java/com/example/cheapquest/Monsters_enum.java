@@ -4,8 +4,8 @@ import android.graphics.drawable.Drawable;
 
 
 public enum Monsters_enum {
-    Bandit("Bandit",3,10,1,1,R.drawable.tiny_monster),
-    Arbre("Arbre",6,40,1,3,R.drawable.tiny_monster),
+    Bandit("Bandit",3,10,1,1,R.drawable.bandit),
+    Arbre("Arbre",6,40,1,3,R.drawable.arbre),
     Golem("Golem",15,110,1,9,R.drawable.tiny_monster),
     Fee("Fée",60,150,1,16,R.drawable.tiny_monster),
     Mouche("Mouche",70,260,1,30,R.drawable.tiny_monster),
