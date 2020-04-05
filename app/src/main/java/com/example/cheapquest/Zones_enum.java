@@ -8,7 +8,7 @@ public enum Zones_enum {
     bois("bois",new ArrayList<String>(Arrays.asList("Arbre"))),
     rocher("rocher",new ArrayList<String>(Arrays.asList("Golem"))),
     entree_foret("foret_entree",new ArrayList<String>(Arrays.asList("Fée"))),
-    foret_dense("forêt_dense",new ArrayList<String>(Arrays.asList("Mouche"))),
+    foret_dense("foret_dense",new ArrayList<String>(Arrays.asList("Mouche"))),
     chateau("chateau",new ArrayList<String>(Arrays.asList("Chevalier"))),
     mare("mare",new ArrayList<String>(Arrays.asList("Canard")));
 

@@ -10,7 +10,7 @@ public enum Monsters_enum {
     Fee("Fée",60,150,1,16,R.drawable.fee),
     Mouche("Mouche",70,260,1,30,R.drawable.mouche),
     Chevalier("Chevalier",100,600,1,55,R.drawable.chevalier),
-    Canard("Canard",555,10000,1,200,R.drawable.tiny_monster);
+    Canard("Canard",555,9000,1,200,R.drawable.canard);
     String name;
     int attack;
     int health;

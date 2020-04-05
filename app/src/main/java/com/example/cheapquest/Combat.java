@@ -136,12 +136,14 @@ public class Combat extends AppCompatActivity {
             }
         }
         hero_xp += ennemy.getXp_value();
-        if(hero_xp >= lvl.xp_needed){
-            hero_xp -= lvl.xp_needed;
-            editor.putInt("hero_lvl",hero_lvl+1);
+        if(hero.lvl < 5) {
+            if (hero_xp >= lvl.xp_needed) {
+                hero_xp -= lvl.xp_needed;
+                editor.putInt("hero_lvl", hero_lvl + 1);
+            }
+            editor.putInt("hero_xp", hero_xp);
+            editor.apply();
         }
-        editor.putInt("hero_xp",hero_xp);
-        editor.apply();
 
         Handler handler = new Handler();
         final int finalHero_xp = sharedPreferences.getInt("hero_xp",0);
