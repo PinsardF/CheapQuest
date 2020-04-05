@@ -136,10 +136,23 @@ public class Combat extends AppCompatActivity {
             }
         }
         hero_xp += ennemy.getXp_value();
-        if(hero.lvl < 5) {
+        if(hero.lvl < 30) {
             if (hero_xp >= lvl.xp_needed) {
                 hero_xp -= lvl.xp_needed;
+                Level_enum[] values = Level_enum.values();
+                Level_enum level = Level_enum.Level1;
                 editor.putInt("hero_lvl", hero_lvl + 1);
+                for (Level_enum value : values){
+                    if(value.lvl == hero_lvl + 1){
+                        level = value;
+                    }
+                }
+                int increase_health = level.health_plus;
+                int increase_attack = level.attack_plus;
+                int new_health = sharedPreferences.getInt("hero_health",0) + increase_health;
+                int new_attack = sharedPreferences.getInt("hero_attack",0) + increase_attack;
+                editor.putInt("hero_health",new_health);
+                editor.putInt("hero_attack",new_attack);
             }
             editor.putInt("hero_xp", hero_xp);
             editor.apply();
@@ -150,20 +163,52 @@ public class Combat extends AppCompatActivity {
         final int finalHero_lvl = sharedPreferences.getInt("hero_lvl",0);
         handler.postDelayed(new Runnable() {public void run() {
             TextView textbox = findViewById(R.id.textbox);
-            textbox.setText("Lvl "+finalHero_lvl+", xp :"+ finalHero_xp);
+            textbox.setText("Lvl "+finalHero_lvl+", xp : "+ finalHero_xp);
         }}, 1000);
+        int x = 0;
 
-        handler.postDelayed(new Runnable() {public void run() { finish(); }}, 1000);
+        handler.postDelayed(new Runnable() {public void run() { finish(); }}, 2500);
     }
 
     private void ennemy_attack() {
         TextView textBox = findViewById(R.id.textbox);
 
         int new_hero_health = hero.getHealth()-ennemy.attack;
-        hero.setHealth(new_hero_health);
+        if(new_hero_health > 0) {
+            hero.setHealth(new_hero_health);
+            TextView hero_health = findViewById(R.id.hero_health);
+            hero_health.setText(hero.getHealth() + "/" + hero.getMax_health() + " PV");
+            textBox.setText("\"" + ennemy.getName() + "\" vous a infligé " + ennemy.attack + " dégats.");
+        } else{
+            dead();
+        }
+    }
+
+    public void dead(){
+        hero.setHealth(0);
+        TextView hero_health = findViewById(R.id.hero_health);
+        hero_health.setText(hero.getHealth() + "/" + hero.getMax_health() + " PV");
+        TextView textBox = findViewById(R.id.textbox);
+        textBox.setText("\"" + ennemy.getName() + "\" vous a infligé " + ennemy.attack + " dégats et vous a tué.");
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {public void run() { finish(); }}, 2500);
+    }
+
+    public void heal(View view){
+        double double_gained_health = (hero.max_health*0.15) / 1;
+        int int_gained_health = (int) double_gained_health;
+        int new_health = hero.health + int_gained_health;
+        if(new_health > hero.max_health){
+            int_gained_health = hero.max_health - hero.health;
+            new_health = hero.max_health;
+        }
+        hero.setHealth(new_health);
         TextView hero_health = findViewById(R.id.hero_health);
         hero_health.setText(hero.getHealth()+"/"+hero.getMax_health()+" PV");
-        textBox.setText("\""+ennemy.getName()+"\" vous a infligé "+ennemy.attack+" dégats.");
+        TextView textBox = findViewById(R.id.textbox);
+        textBox.setText("Vous avez récupéré "+int_gained_health+" points de vie.");
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {public void run() { ennemy_attack(); }}, 1000);
     }
 
     public void fuir(View view) {

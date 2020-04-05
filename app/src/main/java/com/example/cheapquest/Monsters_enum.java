@@ -9,7 +9,7 @@ public enum Monsters_enum {
     Golem("Golem",15,110,1,9,R.drawable.golem),
     Fee("Fée",60,150,1,16,R.drawable.fee),
     Mouche("Mouche",70,260,1,30,R.drawable.mouche),
-    Chevalier("Chevalier",100,600,1,55,R.drawable.chevalier),
+    Chevalier("Chevalier",43,600,1,55,R.drawable.chevalier),
     Canard("Canard",555,9000,1,200,R.drawable.canard);
     String name;
     int attack;

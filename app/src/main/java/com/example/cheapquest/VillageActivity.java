@@ -14,6 +14,7 @@ import org.w3c.dom.Text;
 public class VillageActivity extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -32,7 +33,7 @@ public class VillageActivity extends AppCompatActivity {
             }
         }
         int xp_needed = lvl_actuel.xp_needed;
-        xp.setText("XP :"+hero_xp+"/"+xp_needed);
+        xp.setText("XP : "+hero_xp+"/"+xp_needed);
         int hero_health = sharedPreferences.getInt("hero_health",0);
         int hero_attack = sharedPreferences.getInt("hero_attack",0);
         TextView stats = findViewById(R.id.village_stats);
@@ -44,5 +45,20 @@ public class VillageActivity extends AppCompatActivity {
     public void village_quit(View view){
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {public void run() { finish(); }}, 1000);
+    }
+
+    public void reset_character(View view){
+        sharedPreferences = getSharedPreferences("", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        editor.putInt("hero_health",100);
+        editor.putInt("hero_attack",5);
+        editor.putInt("hero_lvl",1);
+        editor.putInt("hero_xp",0);
+        /*editor.putInt("hero_health",9000);
+        editor.putInt("hero_attack",3300);
+        editor.putInt("hero_lvl",5);
+        editor.putInt("hero_xp",0);*/
+        editor.apply();
+        finish();
     }
 }

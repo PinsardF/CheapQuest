@@ -30,7 +30,8 @@
         android:layout_width="140dp"
         android:layout_height="80dp"
         android:layout_marginBottom="65dp"
-        android:text="Magie"
+        android:text="Soin"
+        android:onClick="heal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button_fuir"
         app:layout_constraintStart_toEndOf="@+id/button_attack" />
